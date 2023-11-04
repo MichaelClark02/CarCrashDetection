@@ -14,7 +14,6 @@ out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
 
 # Record and save the last 30 seconds
 start_time = time.time()
-print(start_time)
 while cap.isOpened():
     ret, frame = cap.read()  # Read a frame from the video capture
 
@@ -30,14 +29,10 @@ while cap.isOpened():
 
         # Check if 30 seconds have elapsed
         current_time = time.time()
-        print(current_time)
         if current_time - start_time >= 30:
             start_time = current_time
             out.release()
             out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
-
-
-            cv2.destroyAllWindows()
     else:
         break
 
