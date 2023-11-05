@@ -41,7 +41,6 @@ async function fetchAllData() {
 
 
 export default function Map({ navigation }) {
-  let currentVid;
   const allVids = fetchAllData();
   const jsonObject = JSON.parse(allVids);
 
@@ -100,7 +99,7 @@ export default function Map({ navigation }) {
           longitudeDelta: 0.0025,
         }}
       >
-        <Marker 
+        {/* {/* <Marker 
         onPress={fetchData('asdasd')}
         coordinate={{
           latitude: 32.98626276350026,
@@ -124,14 +123,14 @@ export default function Map({ navigation }) {
             //useNativeControls
             isLooping
           />  
-          
+           }
           
           
 
             
             
           </Callout>
-        </Marker>
+          </Marker> */}
       </MapView>
       
       
