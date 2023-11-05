@@ -5,7 +5,7 @@ import * as Location from 'expo-location';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Video, ResizeMode } from 'expo-av'
 import 'react-native-gesture-handler'
-
+import {MarkerComponent,currVid} from './marker';
 
 async function fetchData(id) {
   try {
