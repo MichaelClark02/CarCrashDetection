@@ -1,6 +1,5 @@
 import cv2
 import time
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 
 
@@ -13,8 +12,8 @@ if not cap.isOpened():
     print("Error opening video stream or file")
 
 # Define the codec and create a VideoWriter object
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-name = str(time.time())+"output.avi"
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+name = str(time.time())+"output.mp4"
 
 out = cv2.VideoWriter(name, fourcc, 30.0, (640, 480))
 
@@ -71,7 +70,7 @@ while cap.isOpened():
 
 
         
-            name = str(time.time())+"output.avi"
+            name = str(time.time())+"output.mp4"
             out = cv2.VideoWriter(name, fourcc, 30.0, (640, 480))
             
 
@@ -80,7 +79,7 @@ while cap.isOpened():
         # if current_time - start_time >= 30:
         #     start_time = current_time
         #     out.release()
-        #     out = cv2.VideoWriter('output.avi', fourcc, 30.0, (640, 480))
+        #     out = cv2.VideoWriter('output.mp4', fourcc, 30.0, (640, 480))
     else:
         break
 

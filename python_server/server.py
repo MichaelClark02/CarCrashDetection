@@ -9,6 +9,7 @@ from bson import ObjectId
 from dotenv import load_dotenv
 import os
 from datetime import datetime
+import time
 
 
 load_dotenv()
@@ -43,7 +44,7 @@ async def upload_video(video: UploadFile = File(...), location: str = Form(...))
             "file_id": grid_fs_upload_stream._id,
             "filename": video_filename,
             "location": location,
-            "upload_date": datetime.now(),
+            "upload_time": time.time(),
         }
         await db.videos.insert_one(video_info)
 
