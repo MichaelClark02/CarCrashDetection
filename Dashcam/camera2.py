@@ -46,7 +46,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
 
         lat = '33.00382358994163',
-        long = ' -96.70807521810619'
+        long = '-96.70807521810619'
         
         try:
             with open('video_storage\\footage.mp4', 'rb') as file:
