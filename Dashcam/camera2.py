@@ -29,8 +29,9 @@ while True:
             frames.append(frame)
             cv2.imshow("Live Preview", frame)  # Display live video
             
-            if cv2.waitKey(1) & 0xFF == ord('x'):
-                break
+            
+    if cv2.waitKey(1) & 0xFF == ord('x'):
+        break
     
     cv2.destroyWindow("Live Preview")  # Close the live preview window
 
@@ -43,23 +44,23 @@ while True:
         out.release()
 
     #send post request to server
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
 
-        lat = '33.00382358994163',
-        long = '-96.70807521810619'
+    #     lat = '33.00382358994163',
+    #     long = '-96.70807521810619'
         
-        try:
-            with open('video_storage\\footage.mp4', 'rb') as file:
-                response = requests.post(url, video=file, latitude=lat, longitude=long)
+    #     try:
+    #         with open('video_storage\\footage.mp4', 'rb') as file:
+    #             response = requests.post(url, video=file, latitude=lat, longitude=long)
 
 
-            # Check the response
-            if response.status_code == 200:
-                print("Upload succeded")
-            else:
-                print(f"Failed to upload video. Status code: {response.status_code}")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+    #         # Check the response
+    #         if response.status_code == 200:
+    #             print("Upload succeded")
+    #         else:
+    #             print(f"Failed to upload video. Status code: {response.status_code}")
+    #     except Exception as e:
+    #         print(f"An error occurred: {str(e)}")
 
         # Remove older files to maintain the rolling storage
         video_files = os.listdir(output_directory)
