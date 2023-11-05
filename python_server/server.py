@@ -27,7 +27,11 @@ os.makedirs(upload_directory, exist_ok=True)
 
 
 @app.post("/upload/")
-async def upload_video(video: UploadFile = File(...), location: str = Form(...)):
+async def upload_video(
+    video: UploadFile = File(...),
+    latitude: str = Form(...),
+    longtitude: str = Form(...),
+):
     try:
         video_filename = f"{datetime.now().timestamp()}-{video.filename}"
         grid_fs_upload_stream = grid_fs_bucket.open_upload_stream(video_filename)
@@ -42,7 +46,7 @@ async def upload_video(video: UploadFile = File(...), location: str = Form(...))
         video_info = {
             "file_id": grid_fs_upload_stream._id,
             "filename": video_filename,
-            "location": location,
+            "location": {"lat": latitude, "lon": longtitude},
             "upload_date": datetime.now(),
         }
         await db.videos.insert_one(video_info)
