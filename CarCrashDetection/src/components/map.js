@@ -44,29 +44,29 @@ export default function Map({ navigation }) {
   const allVids = fetchAllData();
   const jsonObject = JSON.parse(allVids);
 
-  jsonObject.forEach((item, index) => {
-    <MarkerComponent markerData = {item}>
+  // jsonObject.forEach((item, index) => {
+  //   <MarkerComponent markerData = {item}>
+      
+  //   </MarkerComponent>
+  //   //make marker
+  //   //title = item.file_id
+  //   //longitude = item.location.lon
+  //   //latitude = item.location.lat
+  //   //extra note = item.upload_date
+  //   //all markers need this flag
+  //   //onPress={currVid = fetchData('item.file_id')}
+  //   //on all video tags the source = currVid
 
-    </MarkerComponent>
-    //make marker
-    //title = item.file_id
-    //longitude = item.location.lon
-    //latitude = item.location.lat
-    //extra note = item.upload_date
-    //all markers need this flag
-    //onPress={currVid = fetchData('item.file_id')}
-    //on all video tags the source = currVid
-
-    //ignore
-    // console.log(`Object ${index + 1}:`);
-    // console.log("ID:", item._id);
-    // console.log("File ID:", item.file_id);
-    // console.log("Filename:", item.filename);
-    // console.log("Location (lat):", item.location.lat);
-    // console.log("Location (lon):", item.location.lon);
-    // console.log("Upload Date:", item.upload_date);
-    // console.log("\n");
-  });
+  //   //ignore
+  //   // console.log(`Object ${index + 1}:`);
+  //   // console.log("ID:", item._id);
+  //   // console.log("File ID:", item.file_id);
+  //   // console.log("Filename:", item.filename);
+  //   // console.log("Location (lat):", item.location.lat);
+  //   // console.log("Location (lon):", item.location.lon);
+  //   // console.log("Upload Date:", item.upload_date);
+  //   // console.log("\n");
+  // });
   
   
   const video = React.useRef(null);
@@ -102,6 +102,7 @@ export default function Map({ navigation }) {
           longitudeDelta: 0.0025,
         }}
       >
+        <MarkerComponent markerData = {jsonObject}/>
         {/* {/* <Marker 
         onPress={fetchData('asdasd')}
         coordinate={{
