@@ -16,6 +16,7 @@ load_dotenv()
 
 app = FastAPI()
 
+
 # MongoDB setup
 # MongoDB setup using environment variables
 mongo_details = os.getenv("MONGO_DETAILS", "mongodb://localhost:27017")
@@ -29,11 +30,12 @@ os.makedirs(upload_directory, exist_ok=True)
 
 @app.post("/upload/")
 async def upload_video(
+    longtitude: str,
+    latitude: str,
     video: UploadFile = File(...),
-    latitude: str = Form(...),
-    longtitude: str = Form(...),
 ):
     try:
+        print(video, latitude, longtitude)
         video_filename = f"{datetime.now().timestamp()}-{video.filename}"
         grid_fs_upload_stream = grid_fs_bucket.open_upload_stream(video_filename)
 
@@ -80,11 +82,11 @@ async def watch_video(file_id: str):
         raise HTTPException(status_code=404, detail="Video not found")
 
 
-@app.get("/videos/location/{location}")
-async def get_videos_by_location(location: str) -> List[dict]:
+@app.get("/videos/")
+async def get_videos_by_location() -> List[dict]:
     try:
         # Query the database for videos with the specified location
-        videos_cursor = db.videos.find({"location": location})
+        videos_cursor = db.videos.find()
         videos_list = await videos_cursor.to_list(length=None)
 
         # Convert the ObjectId to string to make it JSON serializable
