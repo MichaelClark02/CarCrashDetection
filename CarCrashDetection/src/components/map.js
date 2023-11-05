@@ -45,6 +45,9 @@ export default function Map({ navigation }) {
   const jsonObject = JSON.parse(allVids);
 
   jsonObject.forEach((item, index) => {
+    <MarkerComponent markerData = {item}>
+
+    </MarkerComponent>
     //make marker
     //title = item.file_id
     //longitude = item.location.lon
