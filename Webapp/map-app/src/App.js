@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>Map App</h1>
-      <Map apiKey="AIzaSyBvoeJAcArrXzzZEJAKl0n9Qwp8RccK6oM" />
+      <Map apiKey="your mom is bad" />
     </div>
   );
 }
