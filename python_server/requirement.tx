@@ -4,5 +4,4 @@ motor
 python-multipart
 databases[postgresql] 
 asyncpg 
-sqlalchemy
 pymongo
