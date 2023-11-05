@@ -10,7 +10,7 @@ if not cap.isOpened():
 
 # Define the codec and create a VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+out = cv2.VideoWriter('output.avi', fourcc, 60.0, (640, 480))
 
 # Record and save the last 30 seconds
 start_time = time.time()
