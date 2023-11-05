@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse
@@ -9,13 +9,24 @@ from bson import ObjectId
 from dotenv import load_dotenv
 import os
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 import time
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse, FileResponse
 
 
 load_dotenv()
-
+templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # MongoDB setup
 # MongoDB setup using environment variables
@@ -35,7 +46,6 @@ async def upload_video(
     video: UploadFile = File(...),
 ):
     try:
-        print(video, latitude, longtitude)
         video_filename = f"{datetime.now().timestamp()}-{video.filename}"
         grid_fs_upload_stream = grid_fs_bucket.open_upload_stream(video_filename)
 
@@ -62,24 +72,18 @@ async def upload_video(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/watch/{file_id}")
-async def watch_video(file_id: str):
-    try:
-        # Open the download stream
-        grid_out = await grid_fs_bucket.open_download_stream(ObjectId(file_id))
+@app.get("/watch/{fileName}", response_class=HTMLResponse)
+async def watch_video(request: Request, fileName: str):
+    video_url = f"/video/{fileName}"  # Endpoint that will serve the video file
+    return templates.TemplateResponse(
+        "watch_video.html", {"request": request, "video_url": video_url}
+    )
 
-        # Define an async generator
-        async def video_streamer(grid_out):
-            while True:
-                chunk = await grid_out.read(8192)  # Read in chunks of 8KB
-                if not chunk:
-                    break
-                yield chunk
 
-        # Call the generator function and pass it to StreamingResponse
-        return StreamingResponse(video_streamer(grid_out), media_type="video/mp4")
-    except NoFile:
-        raise HTTPException(status_code=404, detail="Video not found")
+@app.get("/video/{fileName}")
+async def video(fileName: str):
+    file_path = "uploads/" + fileName
+    return FileResponse(file_path, media_type="video/mp4", filename=fileName)
 
 
 @app.get("/videos/")

@@ -36,9 +36,9 @@ while True:
 
             try:
                 with open("video_storage/footage.mp4", "rb") as file:
-                    files = {"video": ("video_storage/footage.mp4", file, "video/mp4")}
+                    files = {"video": ("footage.mp4", file, "video/mp4")}
                     data = {
-                        "video": ("video_storage/footage.mp4", file, "video/mp4"),
+                        "video": ("footage.mp4", file, "video/mp4"),
                         "latitude": lat,
                         "longitude": long,
                     }
