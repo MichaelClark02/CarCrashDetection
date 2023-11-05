@@ -39,7 +39,35 @@ while cap.isOpened():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             out.release()
 
-            
+            # Input video file path
+            input_video_path = name
+
+            # Output video file path
+            output_video_path = 'trimmed' + name
+
+            # Duration of the last 30 seconds (in seconds)
+            last_30_seconds = 30
+
+            # Open the video file
+            cap = cv2.VideoCapture(input_video_path)
+
+            # Get the frames per second (fps) and total number of frames
+            fps = int(cap.get(cv2.CAP_PROP_FPS))
+            total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+            # Calculate the frame number to start trimming from
+            start_frame = max(0, total_frames - (fps * last_30_seconds))
+
+            # Create a VideoWriter object for the output video
+            outTrim = cv2.VideoWriter(output_video_path, fourcc, fps, (int(cap.get(3)), int(cap.get(4))))
+
+            # Read and write the frames to create the trimmed video
+            cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
+            while True:
+                ret, frame = cap.read()
+                if not ret:
+                    break
+                outTrim.write(frame)
 
 
         
